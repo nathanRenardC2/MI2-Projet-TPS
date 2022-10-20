@@ -8,33 +8,68 @@
     <title>VoyAgence | Voyage virtuel vidéo</title>
 </head>
 <body>
-    <header>
-        <h1>VoyAgence</h1>
-        <nav>
-            <a href="accueil.html">Accueil</a>
-            <a href="perso.html">Espace perso</a>
-            <a href="destinations.html">Destinations</a>
-            <a href="voyage_virtuel_audio.html">Voyage virtuel audio</a>
-            <a href="voyage_virtuel_video.html" class="active">Voyage virtuel vidéo</a>
-            <a href="contact.html">Contact</a>
-        </nav>
-    </header>
+  <header>
+    <h1>VoyAgence</h1>
+    <nav>
+        <ul class="navigation">
+          <li><a href="accueil.html" class="hover-underline-animation">Accueil</a></li>
+          <li>
+            <a class="hover-underline-animation" href="#">Espace Perso</a>
+            <ul>
+              <li><a class="hover-underline-animation" href="#">Connexion</a></li>
+              <li class="sous-navigation">
+                <a class="hover-underline-animation" href="#">Mes informations</a>
+                <ol>
+                  <li><a href="">Nom & prénom</a></li>
+                  <li><a href="">Numéro de téléphone</a></li>
+                  <li><a href="">Email</a></li>
+                </ol>
+                </li>
+              <li><a class="hover-underline-animation" href="#">Messagerie</a></li>
+              <li><a class="hover-underline-animation" href="#">Historique</a></li>
+            </ul>
+          </li>
+          <li>
+            <a class="hover-underline-animation" href="destinations.html">Destinations</a>
+          </li>
+          <li><a class="hover-underline-animation" href="voyage_virtuel_audio.html">Voyage audio</a></li>
+          <li><a class="hover-underline-animation active" href="voyage_virtuel_video.html">Voyage vidéo</a></li>
+          <li><a class="hover-underline-animation" href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+</header>
     <div class="main_container">
     <section>
-        <div class="voyage_video">
-            <h2>Voyage virtuel vidéo 1</h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis illo repellat est similique omnis, blanditiis ea doloremque iste pariatur quam, natus explicabo cum, voluptatum minus quos odit officia iusto tempora.</p>
-            <video controls autoplay>
-                <source src="../Assets/video.mp4" type="video/mp4">
-            </video>    
+      <div class="card 1">
+        <div class="card_image"> 
+          <video controls>
+            <source src="../Assets/video.mp4" type="video/mp4">
+          </video>
         </div>
-        <div class="voyage_video">
-            <h2>Voyage virtuel vidéo 2</h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis illo repellat est similique omnis, blanditiis ea doloremque iste pariatur quam, natus explicabo cum, voluptatum minus quos odit officia iusto tempora.</p>
-            <video controls autoplay>
-                <source src="../Assets/video.mp4" type="video/mp4">
-            </video>     
+        <div class="card_title title-white">
+          <p>Voyage vidéo 1</p>
         </div>
+      </div>
+      <div class="card 1">
+        <div class="card_image"> 
+          <video controls>
+            <source src="../Assets/video.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="card_title title-white">
+          <p>Voyage vidéo 2</p>
+        </div>
+      </div>
+      <div class="card 1">
+        <div class="card_image"> 
+          <video controls>
+            <source src="../Assets/video.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="card_title title-white">
+          <p>Voyage vidéo 3</p>
+        </div>
+      </div>
     </section>
     </div>
 </body>

@@ -12,13 +12,32 @@
     <header>
         <h1>VoyAgence</h1>
         <nav>
-            <a href="accueil.html" class="active">Accueil</a>
-            <a href="perso.html">Espace perso</a>
-            <a href="destinations.html">Destinations</a>
-            <a href="voyage_virtuel_audio.html">Voyage virtuel audio</a>
-            <a href="voyage_virtuel_video.html">Voyage virtuel vidéo</a>
-            <a href="contact.html">Contact</a>
-        </nav>
+            <ul class="navigation">
+              <li><a href="accueil.html" class="hover-underline-animation active">Accueil</a></li>
+              <li>
+                <a class="hover-underline-animation" href="#">Espace Perso</a>
+                <ul>
+                  <li><a class="hover-underline-animation" href="#">Connexion</a></li>
+                  <li class="sous-navigation">
+                    <a class="hover-underline-animation" href="#">Mes informations</a>
+                    <ol>
+                      <li><a href="">Nom & prénom</a></li>
+                      <li><a href="">Numéro de téléphone</a></li>
+                      <li><a href="">Email</a></li>
+                    </ol>
+                    </li>
+                  <li><a class="hover-underline-animation" href="#">Messagerie</a></li>
+                  <li><a class="hover-underline-animation" href="#">Historique</a></li>
+                </ul>
+              </li>
+              <li>
+                <a class="hover-underline-animation" href="destinations.html">Destinations</a>
+              </li>
+              <li><a class="hover-underline-animation" href="voyage_virtuel_audio.html">Voyage audio</a></li>
+              <li><a class="hover-underline-animation" href="voyage_virtuel_video.html">Voyage vidéo</a></li>
+              <li><a class="hover-underline-animation" href="contact.html">Contact</a></li>
+            </ul>
+          </nav>
     </header>
     <div class="main_container">
         <section>

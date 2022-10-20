@@ -8,32 +8,68 @@
     <title>VoyAgence | Voyage virtuel vidéo</title>
 </head>
 <body>
-    <header>
-        <h1>VoyAgence</h1>
-        <nav>
-            <a href="accueil.html">Accueil</a>
-            <a href="perso.html">Espace perso</a>
-            <a href="destinations.html">Destinations</a>
-            <a href="voyage_virtuel_audio.html">Voyage virtuel audio</a>
-            <a href="voyage_virtuel_video.html">Voyage virtuel vidéo</a>
-            <a href="contact.html" class="active">Contact</a>
-        </nav>
-    </header>
+  <header>
+    <h1>VoyAgence</h1>
+    <nav>
+        <ul class="navigation">
+          <li><a href="accueil.html" class="hover-underline-animation">Accueil</a></li>
+          <li>
+            <a class="hover-underline-animation" href="#">Espace Perso</a>
+            <ul>
+              <li><a class="hover-underline-animation" href="#">Connexion</a></li>
+              <li class="sous-navigation">
+                <a class="hover-underline-animation" href="#">Mes informations</a>
+                <ol>
+                  <li><a href="">Nom & prénom</a></li>
+                  <li><a href="">Numéro de téléphone</a></li>
+                  <li><a href="">Email</a></li>
+                </ol>
+                </li>
+              <li><a class="hover-underline-animation" href="#">Messagerie</a></li>
+              <li><a class="hover-underline-animation" href="#">Historique</a></li>
+            </ul>
+          </li>
+          <li>
+            <a class="hover-underline-animation" href="destinations.html">Destinations</a>
+          </li>
+          <li><a class="hover-underline-animation" href="voyage_virtuel_audio.html">Voyage audio</a></li>
+          <li><a class="hover-underline-animation" href="voyage_virtuel_video.html">Voyage vidéo</a></li>
+          <li><a class="hover-underline-animation active" href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+</header>
+  </header>
     <div class="main_container">
         <section>
-            <form class="contact_form" action="" method="post">
-                <label for="nom">Nom</label>
-                <input type="text" name="nom" id="nom" required>
-                <label for="prenom">Prénom</label>
-                <input type="text" name="prenom" id="prenom">
-                <label for="email">Email</label>
-                <input type="email" name="email" id="email">
-                <label for="telephone">Numéro de téléphone</label>
-                <input type="tel" name="telephone" id="telephone">
-                <label for="message">Message</label>
-                <textarea name="message" id="message" cols="30" rows="10" required></textarea>
-                <button type="submit" value="Envoyer">Envoyer</button>
+          <div class="container">
+            <form>
+                <ul>
+                    <li>
+                        <label for="name"><span>Nom <span class="required-star">*</span></span></label>
+                        <input type="text" id="name" name="user_name">
+                    </li>
+                    <li>
+                      <label for="surname"><span>Prénom <span class="required-star">*</span></span></label>
+                      <input type="text" id="surname" name="user_surname">
+                  </li>
+                    <li>
+                        <label for="mail"><span>Email <span class="required-star">*</span></span></label>
+                        <input type="email" id="mail" name="user_email">
+                    </li>
+                    <li>
+                      <label for="tel"><span>Téléphone <span class="required-star">*</span></span></label>
+                      <input type="tel" id="tel" name="user_tel">
+                  </li>
+                    <li>
+                        <label for="msg"><span>Message</span></label>
+                        <textarea rows="4" cols="50"></textarea>
+                    </li>
+                    <li>
+                        <input type="submit">
+                    </li>
+                </ul>
             </form>
+        </div>
         </section>
     </div>
 </body>
