@@ -1,0 +1,96 @@
+@import 'variables';
+
+header{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: $primary;
+    color: #fff;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    h1{
+        margin-left: 40px;
+    }
+
+    nav{
+        margin-right: 40px;
+        a{
+            color: #fff;
+            text-decoration: none;
+            margin: 0 10px;
+            font-weight: bold;
+            position: relative;
+            padding-bottom: 10px;
+
+            &:after{
+                content: "";
+                position: absolute;
+                width: 0;
+                height: 3px;
+                background-color: #fff;
+                bottom: 0;
+                left: 0;
+                -webkit-transition: 0.5s ease;
+                transition: 0.5s ease;
+            }
+
+            &:hover::after{
+                -webkit-transition: 0.5s ease;
+                transition: 0.5s ease;
+                width: 100%;
+            }
+
+            &.active{
+                &:after{
+                    width: 100%;
+                }
+            }
+        }
+    }
+}
+
+/* Gestion du sous menu */
+.sous_menu{
+    display: none;
+    width: 300px;
+    right: auto;
+    background-color: $primary;
+    color: white;
+
+    li{
+        list-style: none;
+        padding: 20px;
+    }
+}
+
+
+.active_sous_menu{
+    display: inline-block;
+
+    &:hover{
+        .sous_menu{
+            display: block;
+            position: absolute;
+            top: 30px;
+            left: -100px;
+
+            li{
+                &:hover{
+                    background-color: $primary-hover;
+                }
+
+                ol{
+                    display: none;
+                    list-style: none;
+                    padding: 10px;
+                }
+            }
+        }
+    }
+}

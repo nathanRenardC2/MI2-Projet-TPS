@@ -1,0 +1,30 @@
+@import 'variables';
+
+.voyage_audio{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 30px;
+    border: 2px solid $primary;
+    border-radius: 10px;
+
+    h2{
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    p{
+        margin-top: 20px;
+        margin-bottom: 20px; 
+    }
+
+    audio{
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    audio::-webkit-media-controls-play-button,
+    audio::-webkit-media-controls-panel{
+        background-color: $primary;
+        color: white;
+    }
+}
