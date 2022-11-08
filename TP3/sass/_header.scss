@@ -1,0 +1,135 @@
+@import 'variables';
+
+header{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+    box-shadow: 10px -10px 25px black;
+
+}
+
+h1{
+    text-align: center;
+    padding-top: 30px !important;
+    padding-bottom: 30px !important;
+    font-size: 2.5em;
+    background-color: $primary-hover;
+    color: white;
+}
+
+.navigation {
+    display: flex;
+    justify-content: space-between;
+    background: $primary;
+
+    ul{
+        display: none;
+        position: absolute;
+        width: 100%;
+        top: 100%;
+
+        a{
+            background: $primary;
+            &:hover{
+                background: $primary-hover;
+            }
+        }
+    }
+
+    li{
+        position: relative;
+        line-height: 50px;
+        text-align: center;
+        flex:1;
+        z-index: 1;
+
+        &:hover{
+
+            ul{
+                display: block;
+            }
+        }
+    }
+
+    a{
+        display: block;
+        padding: 10px;
+        text-transform: uppercase;
+        background: $primary;
+        color: #fff;
+        transition: all 0.5s ease;
+
+        &.active{
+            background: $primary-hover;
+
+            &::after{
+                transform: scaleX(1);
+                transform-origin: bottom left;
+            }
+        }
+
+        &:hover{
+            background: $primary-hover;
+        }
+    }
+}
+
+.sous-sous-navigation{
+    ol{
+        display: none;
+        position: relative;
+        width: 100%;
+        padding: 0;
+
+        a{
+            background: $primary-hover;
+            transition: none;
+            &:hover{
+                background: $primary;
+                border: $primary-active 2px solid;
+            }
+        }
+    }
+
+    &{
+        position: relative;
+        line-height: 50px;
+        text-align: center;
+        flex:1;
+        z-index: 1;
+
+        &:hover{
+
+            ol{
+                display: block;
+            }
+        }
+    }
+}
+
+.hover-underline-animation {
+    display: inline-block;
+    position: relative;
+    color: $primary-active;
+
+    &:after{
+        content: '';
+        position: absolute;
+        width: 100%;
+        transform: scaleX(0);
+        height: 4px;
+        bottom: 0;
+        left: 0;
+        background-color: $primary-active;
+        transform-origin: bottom right;
+        transition: transform 0.25s ease-out;
+    }
+
+   &:hover{
+    &:after{
+        transform: scaleX(1);
+        transform-origin: bottom left;
+    }
+   }
+}
