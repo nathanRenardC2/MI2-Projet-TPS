@@ -41,21 +41,21 @@ let destinations = [
     "img" : "../Assets/madrid.jpg",
     "title" : "Madrid",
     "text" : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur, quos. Eveniet et eius obcaecati recusandae, voluptas dolores cum neque totam, beatae facilis doloremque minus ut iusto odit quos nisi alias. Dolores eius laudantium vitae omnis natus ipsa nulla distinctio dolorum ea repellendus vero tempora, voluptas, cumque delectus quas nam repudiandae harum debitis officia magni quibusdam, rerum quia eum?",
-    "price" : "1000€"
+    "price" : "1000"
   },
   {
     "id": generateId(),
     "img" : "../Assets/paris.jpg",
     "title" : "Paris",
     "text" : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur, quos. Eveniet et eius obcaecati recusandae, voluptas dolores cum neque totam, beatae facilis doloremque minus ut iusto odit quos nisi alias. Dolores eius laudantium vitae omnis natus ipsa nulla distinctio dolorum ea repellendus vero tempora, voluptas, cumque delectus quas nam repudiandae harum debitis officia magni quibusdam, rerum quia eum?",
-    "price" : "800€"
+    "price" : "800"
   },
   {
     "id": generateId(),
     "img" : "../Assets/berlin.jpg",
     "title" : "Berlin",
     "text" : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur, quos. Eveniet et eius obcaecati recusandae, voluptas dolores cum neque totam, beatae facilis doloremque minus ut iusto odit quos nisi alias. Dolores eius laudantium vitae omnis natus ipsa nulla distinctio dolorum ea repellendus vero tempora, voluptas, cumque delectus quas nam repudiandae harum debitis officia magni quibusdam, rerum quia eum?",
-    "price" : "200€"
+    "price" : "200"
   },
 
 ]
@@ -83,7 +83,7 @@ let destinations_form = [
       "type" : "file",
       "id" : "image_destination",
       "name" : "image_destination",
-      "required" : true,
+      "required" : false,
     }
   },
   {
@@ -419,7 +419,7 @@ function pageDestinations(){
   // On boucle sur le JSON
   destinations.forEach(function(data){
     let tr = document.createElement("tr");
-    let id_tr = "destination_" + data["id:"];
+    let id_tr = "destination_" + data["id"];
     tr.setAttribute("id", id_tr);
 
     let td = document.createElement("td");
@@ -437,7 +437,7 @@ function pageDestinations(){
     td2.innerHTML = data.text;
 
     let td3 = document.createElement("td");
-    td3.innerHTML = data.price;
+    td3.innerHTML = data.price + " €";
 
     let td4 = document.createElement("td");
     let button_decouvrir = document.createElement("button");
@@ -452,7 +452,7 @@ function pageDestinations(){
 
     let td6 = document.createElement("td");
     let button_modifier = document.createElement("button");
-    button_modifier.setAttribute("onclick", "formOpenDestination(" + data + ")");
+    button_modifier.setAttribute("onclick", "formOpenDestination('" + data["id"] + "')");
     button_modifier.innerHTML = "modifier";
     td6.appendChild(button_modifier);
 
@@ -663,10 +663,10 @@ function removeDestination(destination){
 
 /**
  * Ouvre un formulaire pour ajouter une destination
- * @param void | destination
+ * @param void | id_destination
  * @return void
  */
-function formOpenDestination(destination){
+function formOpenDestination(id_destination){
   if(!form_destination_open){
     // Formulaire d'ajout d'une destination
   let form_background = document.createElement("div");
@@ -738,10 +738,6 @@ function formOpenDestination(destination){
     form.appendChild(button_fermer);
     form.appendChild(ul);
 
-    form.addEventListener("submit", function(e){
-      e.preventDefault();
-      addDestination();
-    });
 
     div.appendChild(form);
     form_background.appendChild(div);
@@ -779,6 +775,38 @@ function formOpenDestination(destination){
     
     });
 
+    // Recherche de la destination à partir de l'id
+    let destination = null;
+    if(id_destination){
+      for(let i = 0; i < destinations.length; i++){
+        if(destinations[i].id == id_destination){
+          destination = destinations[i];
+        }
+      }
+    }
+
+    // On rempli le formulaire si on est en mode modification
+    if(destination){
+      document.getElementById("ville_destination").value = destination.title;
+      document.getElementById("image_destination").src = destination.img;
+      document.getElementById("prix_destination").value = destination.price;
+      document.getElementById("description_destination").value = destination.text;
+
+      // On change le texte du bouton
+      document.getElementById("formulaire_ajout").getElementsByTagName("input")[3].value = "Modifier";
+
+      // On change l'écoute du bouton submit
+      document.getElementById("formulaire_ajout").addEventListener("submit", function(e){
+        e.preventDefault();
+        modifyDestination(destination);
+      });
+    } else{
+      form.addEventListener("submit", function(e){
+        e.preventDefault();
+        addDestination();
+      });
+    }
+
     form_destination_open = true;
   }
 }
@@ -813,7 +841,7 @@ function addDestination(){
     "img": image_destination.src,
     "title": ville_destination.value,
     "text": description_destination.value,
-    "price": prix_destination.value + "€",
+    "price": prix_destination.value,
 }
 
   // On ajoute la destination dans le JSON
@@ -851,7 +879,7 @@ function displayDestination(destination){
   td2.innerHTML = destination.text;
 
   let td3 = document.createElement("td");
-  td3.innerHTML = destination.price;
+  td3.innerHTML = destination.price + "€";
 
   let td4 = document.createElement("td");
   let button_decouvrir = document.createElement("button");
@@ -865,9 +893,15 @@ function displayDestination(destination){
   td5.appendChild(a);
 
   let td6 = document.createElement("td");
+  let button_modifier = document.createElement("button");
+  button_modifier.innerHTML = "modifier";
+  button_modifier.setAttribute("onclick", "formOpenDestination('" + destination.id + "')");
+  td6.appendChild(button_modifier);
+
+  let td7 = document.createElement("td");
   let button_supp = document.createElement("button");
   button_supp.innerHTML = "X";
-  td6.appendChild(button_supp);
+  td7.appendChild(button_supp);
 
   tr.appendChild(td);
   tr.appendChild(td2);
@@ -875,6 +909,7 @@ function displayDestination(destination){
   tr.appendChild(td4);
   tr.appendChild(td5);
   tr.appendChild(td6);
+  tr.appendChild(td7);
 
   tbody.appendChild(tr);
 
@@ -884,6 +919,45 @@ function displayDestination(destination){
   // On ferme le formulaire
   formCloseDestination();
 }
+
+/**
+ * Modifie une destination dans le JSON et sur la page
+ * @param destination
+ * @return void
+ */
+function modifyDestination(destination){
+  let form = document.getElementById("formulaire_ajout");
+  let ville_destination = document.getElementById("ville_destination");
+  let image_destination = document.getElementById("image_destination");
+  let prix_destination = document.getElementById("prix_destination");
+  let description_destination = document.getElementById("description_destination");
+
+  // On modifie la destination dans le JSON
+  destination.title = ville_destination.value;
+  destination.img = image_destination.src;
+  destination.text = description_destination.value;
+  destination.price = prix_destination.value;
+
+  // On modifie la destination sur la page
+  let id_tr = "destination_" + destination.id;
+  let tr = document.getElementById(id_tr);
+  let td = tr.getElementsByTagName("td")[0];
+  let figure = td.getElementsByTagName("figure")[0];
+  let img = figure.getElementsByTagName("img")[0];
+  img.setAttribute("src", destination.img);
+  let figcaption = figure.getElementsByTagName("figcaption")[0];
+  figcaption.innerHTML = destination.title;
+
+  let td2 = tr.getElementsByTagName("td")[1];
+  td2.innerHTML = destination.text;
+
+  let td3 = tr.getElementsByTagName("td")[2];
+  td3.innerHTML = destination.price;
+
+  // On ferme le formulaire
+  formCloseDestination();
+}
+
 
 /**
  * Génrère un id unique aléatoire
