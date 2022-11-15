@@ -952,7 +952,7 @@ function modifyDestination(destination){
   td2.innerHTML = destination.text;
 
   let td3 = tr.getElementsByTagName("td")[2];
-  td3.innerHTML = destination.price;
+  td3.innerHTML = destination.price + "€";
 
   // On ferme le formulaire
   formCloseDestination();
