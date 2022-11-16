@@ -506,6 +506,17 @@ function pageDestinations(){
     tr.appendChild(td6);
     tr.appendChild(td7);
 
+    // Si l'écran est inférieur à 1024px, on ajoute l'attribut data-label sur les td
+    if(window.innerWidth < 1024){
+      td.setAttribute("data-label", "Destinations");
+      td2.setAttribute("data-label", "Offres");
+      td3.setAttribute("data-label", "Prix");
+      td4.setAttribute("data-label", "");
+      td5.setAttribute("data-label", "Début");
+      td6.setAttribute("data-label", "Modifier");
+      td7.setAttribute("data-label", "Supprimer");
+    }
+
     tbody.appendChild(tr);
 
     // Lorsque tous les éléments sont ajoutés au tbody, on peut créer les événements de clic aux boutons

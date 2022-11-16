@@ -45,7 +45,7 @@ tbody{
         }
 
         td{
-            text-align: justify;
+            text-align: center;
             margin: 0 20px;
 
             button{
@@ -103,7 +103,9 @@ thead{
     #formulaire_ajout{
         position: fixed;
         top: 15%;
-        left: 30%;
+        left: 7%;
+        right: 10%;
+        width: 80%;
     }
 
     #fermer_formulaire{
@@ -146,4 +148,67 @@ thead{
         cursor: pointer;
     }
 }
+
+// GESTION DU TABLEAU LORSQUE L'ECRAN EST TROP PETIT
+@media screen and (max-width: $breakpoint-tablet) {
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+
+    thead{
+        display: none;
+    }
+
+    td{
+        margin-top: -1px;
+        padding-left: 150px;
+        margin-left : 0px !important;
+        position: relative;
+
+        &::before{
+            content: attr(data-label);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 110px;
+            bottom: 0;
+            padding-left: 10px;
+            background-color: $primary;
+            color: white;
+            display: flex;
+            align-items: center;
+            font-weight: bold;
+        }
+    }
+
+    tr{
+        margin-bottom: 20px;
+
+        &:nth-child(2n){
+            background-color: $primary-hover !important;
+            color: white;
+            a{
+                color: white;
+                font-weight: bold;
+            }
+
+            td{
+                button{
+                    background-color: $primary !important;
+                    padding: 10px;
+                    border: 0;
+                    border-radius: 5px;
+                    margin: 20px;
+    
+                    &:hover{
+                        background-color: $primary;
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+    }
+}
+
+    
 

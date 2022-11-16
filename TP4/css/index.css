@@ -167,7 +167,7 @@ tbody tr:nth-child(2n-1) a {
   font-weight: bold;
 }
 tbody tr td {
-  text-align: justify;
+  text-align: center;
   margin: 0 20px;
 }
 tbody tr td button {
@@ -216,7 +216,9 @@ thead tr th {
 #form_background #formulaire_ajout {
   position: fixed;
   top: 15%;
-  left: 30%;
+  left: 7%;
+  right: 10%;
+  width: 80%;
 }
 #form_background #fermer_formulaire {
   position: absolute;
@@ -255,6 +257,56 @@ thead tr th {
   cursor: pointer;
 }
 
+@media screen and (max-width: 1024px) {
+  table, thead, tbody, th, td, tr {
+    display: block;
+  }
+  thead {
+    display: none;
+  }
+  td {
+    margin-top: -1px;
+    padding-left: 150px;
+    margin-left: 0px !important;
+    position: relative;
+  }
+  td::before {
+    content: attr(data-label);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 110px;
+    bottom: 0;
+    padding-left: 10px;
+    background-color: #2d5d83;
+    color: white;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+  }
+  tr {
+    margin-bottom: 20px;
+  }
+  tr:nth-child(2n) {
+    background-color: #4f9bd9 !important;
+    color: white;
+  }
+  tr:nth-child(2n) a {
+    color: white;
+    font-weight: bold;
+  }
+  tr:nth-child(2n) td button {
+    background-color: #2d5d83 !important;
+    padding: 10px;
+    border: 0;
+    border-radius: 5px;
+    margin: 20px;
+  }
+  tr:nth-child(2n) td button:hover {
+    background-color: #2d5d83;
+    cursor: pointer;
+  }
+}
 .cards-list {
   z-index: 0;
   width: 100%;
