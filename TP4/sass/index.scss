@@ -3,6 +3,7 @@
 @import 'voyage_audio.scss';
 @import 'voyage_video.scss';
 @import 'contact.scss';
+@import 'variables.scss';
 
 body{
     margin: 0;
@@ -53,4 +54,16 @@ section{
 h2{
     color: $primary;
     font-weight: bold;
+
+    @media screen and (max-width: $breakpoint-tablet) {
+        &{
+            color: $primary-tablet;
+        }
+    }
+}
+
+@media screen and (max-width: $breakpoint-tablet) {
+    section{
+        margin-top: 0px;
+    }
 }
