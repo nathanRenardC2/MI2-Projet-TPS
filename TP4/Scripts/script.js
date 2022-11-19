@@ -266,6 +266,11 @@ let menu = [
     },
 ];
 
+/// ROLE DE L'UTILISATEUR
+
+// On récupère le role de l'utilisateur dans le local storage s'il existe
+let role = localStorage.getItem("role");
+
 //// GESTION DU MENU
 
 let menus = document.getElementById("menus");
@@ -442,10 +447,13 @@ function pageDestinations(){
   // Création du tableau, du thead en dure ( car celui-ci n'est pas dynamique ) et du boutton pour ajouter une destination 
   let section = document.createElement("section");
   section.setAttribute("id", "debut");
-  let button_add = document.createElement("button");
-  button_add.setAttribute("onclick", "formOpenDestination()");
-  button_add.innerHTML = "Ajouter une destination";
-  button_add.setAttribute("id", "ajouter_button");
+
+  if(role == "admin"){
+    var button_add = document.createElement("button");
+    button_add.setAttribute("onclick", "formOpenDestination()");
+    button_add.innerHTML = "Ajouter une destination";
+    button_add.setAttribute("id", "ajouter_button");
+  }
   let table = document.createElement("table");
   let thead = document.createElement("thead");
   let tr = document.createElement("tr");
@@ -462,21 +470,25 @@ function pageDestinations(){
   th3.innerHTML = "Prix";
   tr.appendChild(th3);
 
-  let th4 = document.createElement("th");
-  th4.innerHTML = "";
-  tr.appendChild(th4);
+  if(role == "admin" || role == "normal"){
+    var th4 = document.createElement("th");
+    th4.innerHTML = "";
+    tr.appendChild(th4);
+  }
 
   let th5 = document.createElement("th");
   th5.innerHTML = "Début";
   tr.appendChild(th5);
 
-  let th6 = document.createElement("th");
-  th6.innerHTML = "Modifier";
-  tr.appendChild(th6);
-
-  let th7 = document.createElement("th");
-  th7.innerHTML = "Supprimer";
-  tr.appendChild(th7);
+  if(role == "admin"){
+    var th6 = document.createElement("th");
+    th6.innerHTML = "Modifier";
+    tr.appendChild(th6);
+  
+    var th7 = document.createElement("th");
+    th7.innerHTML = "Supprimer";
+    tr.appendChild(th7);
+  }
 
   thead.appendChild(tr);
 
@@ -508,10 +520,12 @@ function pageDestinations(){
     let td3 = document.createElement("td");
     td3.innerHTML = data.price + " €";
 
-    let td4 = document.createElement("td");
-    let button_decouvrir = document.createElement("button");
-    button_decouvrir.innerHTML = "découvrir";
-    td4.appendChild(button_decouvrir);
+    if(role == "admin" || role == "normal"){
+      var td4 = document.createElement("td");
+      var button_decouvrir = document.createElement("button");
+      button_decouvrir.innerHTML = "découvrir";
+      td4.appendChild(button_decouvrir);
+    }
 
     let td5 = document.createElement("td");
     let a = document.createElement("a");
@@ -519,47 +533,62 @@ function pageDestinations(){
     a.innerHTML = "debut";
     td5.appendChild(a);
 
-    let td6 = document.createElement("td");
-    let button_modifier = document.createElement("button");
-    button_modifier.setAttribute("onclick", "formOpenDestination('" + data["id"] + "')");
-    button_modifier.innerHTML = "modifier";
-    td6.appendChild(button_modifier);
-
-    let td7 = document.createElement("td");
-    let button_supp = document.createElement("button");
-    button_supp.innerHTML = "X";
-    td7.appendChild(button_supp);
+    if(role == "admin"){
+      var td6 = document.createElement("td");
+      var button_modifier = document.createElement("button");
+      button_modifier.setAttribute("onclick", "formOpenDestination('" + data["id"] + "')");
+      button_modifier.innerHTML = "modifier";
+      td6.appendChild(button_modifier);
+  
+      var td7 = document.createElement("td");
+      var button_supp = document.createElement("button");
+      button_supp.innerHTML = "X";
+      td7.appendChild(button_supp);
+    }
 
     tr.appendChild(td);
     tr.appendChild(td2);
     tr.appendChild(td3);
-    tr.appendChild(td4);
+    if(role == "admin" || role == "normal"){
+      tr.appendChild(td4);
+    }
     tr.appendChild(td5);
-    tr.appendChild(td6);
-    tr.appendChild(td7);
+    if(role == "admin"){
+      tr.appendChild(td6);
+      tr.appendChild(td7);
+    }
 
     // Si l'écran est inférieur à 1024px, on ajoute l'attribut data-label sur les td
     if(window.innerWidth < 1024){
       td.setAttribute("data-label", "Destinations");
       td2.setAttribute("data-label", "Offres");
       td3.setAttribute("data-label", "Prix");
-      td4.setAttribute("data-label", "");
+      if(role == "admin" || role == "normal"){
+        td4.setAttribute("data-label", "");
+      }
       td5.setAttribute("data-label", "Début");
-      td6.setAttribute("data-label", "Modifier");
-      td7.setAttribute("data-label", "Supprimer");
+      if(role == "admin"){
+        td6.setAttribute("data-label", "Modifier");
+        td7.setAttribute("data-label", "Supprimer");
+      }
     }
 
     tbody.appendChild(tr);
 
-    // Lorsque tous les éléments sont ajoutés au tbody, on peut créer les événements de clic aux boutons
-    button_supp.setAttribute("onclick", "removeDestination(" + id_tr + ")");
+    if(role == "admin"){
+      // Lorsque tous les éléments sont ajoutés au tbody, on peut créer les événements de clic aux boutons
+      button_supp.setAttribute("onclick", "removeDestination(" + id_tr + ")");
+    }
+    
   
 });
 
   table.appendChild(thead);
   table.appendChild(tbody);
   section.appendChild(table);
-  section.appendChild(button_add);
+  if(role == "admin"){
+    section.appendChild(button_add);
+  }
   main_container.appendChild(section);
 
 }
@@ -764,6 +793,10 @@ function pageConnexion(){
   section.setAttribute("id", "section_connexion");
   let div = document.createElement("div");
   div.classList.add("container");
+  if(role == "admin" || role == "user"){
+    var h2 = document.createElement("h2");
+    h2.innerHTML = "Bonjour " + role;
+  }
   let form = document.createElement("form");
   form.setAttribute('id', 'form_connexion');
   form.setAttribute('action', 'connexion.php');
@@ -807,7 +840,22 @@ function pageConnexion(){
   li.appendChild(input);
   ul.appendChild(li);
 
+  // On ajout un bouton de deconnexion si l'utilisateur est connecté sous le formulaire
+  if(role == "admin" || role == "user"){
+    var button = document.createElement("button");
+    button.setAttribute("type", "button");
+    button.addEventListener("click", function(){
+      deconnexion();
+    });
+    button.setAttribute("id", "deconnexion");
+    button.innerHTML = "Déconnexion";
+    ul.appendChild(button);
+  }
+
   form.appendChild(ul);
+  if(role == "admin" || role == "user"){
+    div.appendChild(h2);
+  }
   div.appendChild(form);
   section.appendChild(div);
   main_container.appendChild(section);
@@ -818,22 +866,61 @@ function pageConnexion(){
     let formdata = new FormData(form_connexion);
     let xhr = new XMLHttpRequest();
     xhr.open("POST", "connexion.php", true);
-    xhr.onload = function(){
-      if(this.status == 200){
-        let response = JSON.parse(this.responseText);
-        if(response.error){
-          alert(response.error);
-        }else{
-          alert(response.success);
-        }
-      }
-    }
+    xhr.addEventListener("load", fctRequetteOk);
+    xhr.addEventListener("error", fctRequetteKo);
     xhr.send(formdata);
   });
 }
 
 // FONCTIONS GERANTS LA CONNEXION
 
+/**
+ * Fonction qui gère la connexion
+ * @param event e
+ * @return void
+ */
+function fctRequetteOk(e){
+  let contenuHTML = this.responseText;
+  if(contenuHTML.trim() == "admin"){
+    role = "admin";
+    // mettre le role dans le localStorage
+    localStorage.setItem("role", role);
+    // On affiche la page d'accueil
+    pageAccueil();
+  } else if(contenuHTML.trim() == "normal"){
+    // mettre le role dans le localStorage
+    localStorage.setItem("role", role);
+    role = "normal";
+    pageAccueil();
+  } else {
+    alert(contenuHTML);
+    let form_connexion = document.getElementById("form_connexion");
+    form_connexion.reset();
+  }
+}
+
+/**
+ * Fonction qui gère les erreurs de connexion
+ * @param event e
+ * @return void
+ */
+function fctRequetteKo(e){
+  console.log("Erreur de requette");
+}
+
+// FONCTIONS GERANTS LA DECONNEXION
+
+/**
+ * Déconnecte l'utilisateur
+ * @param void
+ * @return void
+ */
+function deconnexion(){
+  // On supprime le role du localStorage
+  localStorage.removeItem("role");
+  role = "";
+  pageAccueil();
+}
 
 // FONCTIONS GERANTS LES DESTINATIONS
 
