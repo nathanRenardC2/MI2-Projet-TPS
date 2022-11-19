@@ -37,12 +37,20 @@ h1 {
   .navigation ul {
     display: none;
     position: absolute;
-    width: 100%;
-    top: 100%; }
+    width: 100%; }
+    @media screen and (max-width: 1024px) {
+      .navigation ul {
+        position: relative; } }
     .navigation ul a {
       background: #2d5d83; }
+      @media screen and (max-width: 1024px) {
+        .navigation ul a {
+          background: #781c1c; } }
       .navigation ul a:hover {
         background: #4f9bd9; }
+        @media screen and (max-width: 1024px) {
+          .navigation ul a:hover {
+            background: #a72929; } }
   .navigation li {
     position: relative;
     line-height: 50px;
@@ -88,10 +96,17 @@ h1 {
     transition: none; }
     @media screen and (max-width: 1024px) {
       .sous-navigation ol a {
-        background: #781c1c; } }
+        background: #a72929; } }
+    @media screen and (max-width: 1024px) {
+      .sous-navigation ol a {
+        background: #a72929; } }
     .sous-navigation ol a:hover {
       background: #2d5d83;
       border: #25c5df 2px solid; }
+      @media screen and (max-width: 1024px) {
+        .sous-navigation ol a:hover {
+          background: #781c1c;
+          border: #e21f1f 2px solid; } }
 .sous-navigation {
   position: relative;
   line-height: 50px;

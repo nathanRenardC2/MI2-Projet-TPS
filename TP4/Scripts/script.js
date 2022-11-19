@@ -1,5 +1,4 @@
 ///////// JSON
-
 //// JSON DES PAGES
 
 // Page d'accueil
@@ -183,6 +182,35 @@ let contact = [
   },
 ]
 
+// Page de connexion
+// On récupère que les données qui vont changer entre les lignes
+let connexion = [
+  {
+    "label" : {
+      "text" : "Login",
+      "for" : "login",
+    },
+    "input" : {
+      "type" : "text",
+      "id" : "mail",
+      "name" : "login",
+      "required" : true,
+    }
+  },
+  {
+    "label" : {
+      "text" : "Mot de passe",
+      "for" : "password",
+    },
+    "input" : {
+      "type" : "password",
+      "id" : "password",
+      "name" : "password",
+      "required" : true,
+    }
+  },
+]
+
 
 //// JSON DU MENUS
 
@@ -196,6 +224,7 @@ let menu = [
       "children": [
         {
           "name": "Connexion",
+          "onclick" : "pageConnexion()",
         },
         {
           "name": "Messagerie",
@@ -261,6 +290,9 @@ for(let i = 0; i < menu.length; i++){
       a2.setAttribute("href", "#");
       a2.classList.add("hover-underline-animation");
       a2.innerHTML = menu[i].children[j].name;
+      if(menu[i].children[j].onclick){
+        a2.setAttribute("onclick", menu[i].children[j].onclick);
+      }
       li2.appendChild(a2);
       ul.appendChild(li2);
       // Si l'enfant a des enfants, on crée un sous-sous-menu
@@ -709,6 +741,99 @@ function pageContact(){
   main_container.appendChild(section);
 
 }
+
+/**
+ * Affiche la page de connexion
+ * @param void
+ * @return void
+ */
+function pageConnexion(){
+  // Si la fenetre est inférieur à 1024px, on ferme le menu
+  if(window.innerWidth < 1024){
+    menus.style.display = "none";
+    menus_open = false;
+  }
+  
+  // On supprime le contenu de la page
+  clearPage();
+
+  // On ajoute la classe active sur le lien de la page d'accueil
+  addActive("Connexion");
+
+  let section = document.createElement("section");
+  section.setAttribute("id", "section_connexion");
+  let div = document.createElement("div");
+  div.classList.add("container");
+  let form = document.createElement("form");
+  form.setAttribute('id', 'form_connexion');
+  form.setAttribute('action', 'connexion.php');
+  let ul = document.createElement("ul");
+  // On boucle sur le JSON pour créer la page
+  connexion.forEach(function(data){
+    let li = document.createElement("li");
+    if(data.label){
+      let label = document.createElement("label");
+      label.setAttribute("for", data.label.for);
+      let span = document.createElement("span");
+      span.innerHTML = data.label.text;
+      label.appendChild(span);
+      if(data.input.required == true){
+        let span = document.createElement("span");
+        span.classList.add("required-star");
+        span.innerHTML = "*";
+        label.appendChild(span);
+      }
+      li.appendChild(label);
+    }
+    if(data.input){
+      let input = document.createElement("input");
+      input.setAttribute("type", data.input.type);
+      input.setAttribute("name", data.input.name);
+      input.setAttribute("id", data.input.id);
+      if(data.input.required == true){
+        input.setAttribute("required", "");
+      }
+      li.appendChild(input);
+    }
+    ul.appendChild(li);
+  }
+  );
+
+  // On ajoute le bouton submit
+  let li = document.createElement("li");
+  let input = document.createElement("input");
+  input.setAttribute("type", "submit");
+  input.setAttribute("value", "Connexion");
+  li.appendChild(input);
+  ul.appendChild(li);
+
+  form.appendChild(ul);
+  div.appendChild(form);
+  section.appendChild(div);
+  main_container.appendChild(section);
+
+  let form_connexion = document.getElementById("form_connexion");
+  form_connexion.addEventListener("submit", function(e){
+    e.preventDefault();
+    let formdata = new FormData(form_connexion);
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", "connexion.php", true);
+    xhr.onload = function(){
+      if(this.status == 200){
+        let response = JSON.parse(this.responseText);
+        if(response.error){
+          alert(response.error);
+        }else{
+          alert(response.success);
+        }
+      }
+    }
+    xhr.send(formdata);
+  });
+}
+
+// FONCTIONS GERANTS LA CONNEXION
+
 
 // FONCTIONS GERANTS LES DESTINATIONS
 

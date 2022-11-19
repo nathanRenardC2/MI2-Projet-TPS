@@ -54,12 +54,24 @@ h1{
         display: none;
         position: absolute;
         width: 100%;
-        top: 100%;
+
+        @media screen and (max-width: $breakpoint-tablet){
+            position: relative;
+        }
 
         a{
             background: $primary;
+
+            @media screen and (max-width: $breakpoint-tablet){
+                background: $primary-hover-tablet;
+            }
+
             &:hover{
                 background: $primary-hover;
+
+                @media screen and (max-width: $breakpoint-tablet){
+                    background: $primary-tablet;
+                }
             }
         }
     }
@@ -136,15 +148,24 @@ h1{
             background: $primary-hover;
             transition: none;
 
+            @media screen and (max-width: $breakpoint-tablet){
+                background: $primary-tablet;
+            }
+
             @media screen and (max-width: $breakpoint-tablet) {
                 &{
-                    background: $primary-hover-tablet;
+                    background: $primary-tablet;
                 }
             }
 
             &:hover{
                 background: $primary;
                 border: $primary-active 2px solid;
+
+                @media screen and (max-width: $breakpoint-tablet){
+                    background: $primary-hover-tablet;
+                    border: $primary-active-tablet 2px solid;
+                }
             }
         }
     }
