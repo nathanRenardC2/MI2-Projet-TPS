@@ -59,9 +59,6 @@ let destinations = [
 
 ]
 
-// On ajoute les destinations au localStorage
-localStorage.setItem("destinations", JSON.stringify(destinations));
-
 
 let destinations_form = [
   {
@@ -388,7 +385,7 @@ for(let i = 0; i < menu.length; i++){
   });
   
 /**
- * Fonction pour ouvrir le premier sous menu qui est un ul
+ * Fonction pour ouvrir le premier sous menu qui est un ul lorsque la taille de la fenêtre est inférieure à 1024px
  * @param {HTMLElement} element
  * @returns {void}
  */
@@ -402,7 +399,7 @@ function openMenuUl(element){
 }
 
 /**
- * Fonction pour ouvrir le deuxième sous menu qui est un ol
+ * Fonction pour ouvrir le deuxième sous menu qui est un ol lorsque la taille de l'écran est inférieur à 1024px
  * @param {HTMLElement} element
  * @returns {void}
  */
