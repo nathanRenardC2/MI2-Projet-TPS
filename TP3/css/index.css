@@ -49,24 +49,24 @@ h1 {
     .navigation a:hover {
       background: #4f9bd9; }
 
-.sous-sous-navigation ol {
+.sous-navigation ol {
   display: none;
   position: relative;
   width: 100%;
   padding: 0; }
-  .sous-sous-navigation ol a {
+  .sous-navigation ol a {
     background: #4f9bd9;
     transition: none; }
-    .sous-sous-navigation ol a:hover {
+    .sous-navigation ol a:hover {
       background: #2d5d83;
       border: #25c5df 2px solid; }
-.sous-sous-navigation {
+.sous-navigation {
   position: relative;
   line-height: 50px;
   text-align: center;
   flex: 1;
   z-index: 1; }
-  .sous-sous-navigation:hover ol {
+  .sous-navigation:hover ol {
     display: block; }
 
 .hover-underline-animation {
@@ -98,6 +98,8 @@ table {
 tbody tr:nth-child(2n) {
   background-color: #2d5d83;
   color: white; }
+  tbody tr:nth-child(2n):hover {
+    background-color: #4f9bd9; }
   tbody tr:nth-child(2n) a {
     color: white;
     font-weight: bold; }
@@ -117,7 +119,7 @@ tbody tr:nth-child(2n-1) a {
   color: #4f9bd9;
   font-weight: bold; }
 tbody tr td {
-  text-align: center;
+  text-align: justify;
   margin: 0 20px; }
   tbody tr td button {
     background-color: #2d5d83;

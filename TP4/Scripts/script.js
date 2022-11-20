@@ -59,6 +59,9 @@ let destinations = [
 
 ]
 
+// On ajoute les destinations au localStorage
+localStorage.setItem("destinations", JSON.stringify(destinations));
+
 
 let destinations_form = [
   {
@@ -282,6 +285,27 @@ for(let i = 0; i < menu.length; i++){
   let a = document.createElement("a");
   a.setAttribute("href", "#");
   a.setAttribute("onclick", menu[i].onclick);
+
+  // On ajoute un listener sur la fenetre pour vérifier la taille de l'écran. Si elle est inférieur à 1024px, 
+  // on ajoute un attribut onclick sur les liens ayant des enfants pour ouvrir le menu et on supprime l'attribut onclick lorsque la fenetre est agrandie
+  window.addEventListener("resize", function(){
+    if(window.innerWidth < 1024){
+      if(menu[i].children){
+        a.setAttribute("onclick", "openMenuUl(this)");
+      }
+    }
+    if(window.innerWidth >= 1024){
+      if(menu[i].children){
+        a.removeAttribute("onclick");
+
+        // On supprime le style inline qui a été ajouté lors de l'ouverture du menu
+        let ul = a.nextElementSibling;
+        ul.removeAttribute("style");
+      }
+    }
+  });
+
+
   a.classList.add("hover-underline-animation");
   a.innerHTML = menu[i].name;
   li.appendChild(a);
@@ -298,6 +322,26 @@ for(let i = 0; i < menu.length; i++){
       if(menu[i].children[j].onclick){
         a2.setAttribute("onclick", menu[i].children[j].onclick);
       }
+
+      // On ajoute un listener sur la fenetre pour vérifier la taille de l'écran. Si elle est inférieur à 1024px, 
+      // on ajoute un attribut onclick sur les liens ayant des enfants pour ouvrir le menu et on supprime l'attribut onclick lorsque la fenetre est agrandie
+      window.addEventListener("resize", function(){
+        if(window.innerWidth < 1024){
+          if(menu[i].children[j].children){
+            a2.setAttribute("onclick", "openMenuOl(this)");
+          }
+        }
+        if(window.innerWidth >= 1024){
+          if(menu[i].children[j].children){
+            a2.removeAttribute("onclick");
+
+            // On supprime le style inline qui a été ajouté lors de l'ouverture du menu
+            let ol = a2.nextElementSibling;
+            ol.removeAttribute("style");
+          }
+        }
+      });
+
       li2.appendChild(a2);
       ul.appendChild(li2);
       // Si l'enfant a des enfants, on crée un sous-sous-menu
@@ -343,6 +387,33 @@ for(let i = 0; i < menu.length; i++){
     }
   });
   
+/**
+ * Fonction pour ouvrir le premier sous menu qui est un ul
+ * @param {HTMLElement} element
+ * @returns {void}
+ */
+function openMenuUl(element){
+  let ul = element.parentNode.querySelector("ul");
+  if(ul.style.display == "block"){
+    ul.style.display = "none";
+  } else {
+    ul.style.display = "block";
+  }
+}
+
+/**
+ * Fonction pour ouvrir le deuxième sous menu qui est un ol
+ * @param {HTMLElement} element
+ * @returns {void}
+ */
+function openMenuOl(element){
+  let ol = element.parentNode.querySelector("ol");
+  if(ol.style.display == "block"){
+    ol.style.display = "none";
+  } else {
+    ol.style.display = "block";
+  }
+}
 
 
 /**
@@ -793,7 +864,7 @@ function pageConnexion(){
   section.setAttribute("id", "section_connexion");
   let div = document.createElement("div");
   div.classList.add("container");
-  if(role == "admin" || role == "user"){
+  if(role == "admin" || role == "normal"){
     var h2 = document.createElement("h2");
     h2.innerHTML = "Bonjour " + role;
   }
@@ -841,7 +912,7 @@ function pageConnexion(){
   ul.appendChild(li);
 
   // On ajout un bouton de deconnexion si l'utilisateur est connecté sous le formulaire
-  if(role == "admin" || role == "user"){
+  if(role == "admin" || role == "normal"){
     var button = document.createElement("button");
     button.setAttribute("type", "button");
     button.addEventListener("click", function(){
@@ -853,7 +924,7 @@ function pageConnexion(){
   }
 
   form.appendChild(ul);
-  if(role == "admin" || role == "user"){
+  if(role == "admin" || role == "normal"){
     div.appendChild(h2);
   }
   div.appendChild(form);
@@ -1078,7 +1149,7 @@ function formOpenDestination(id_destination){
         e.preventDefault();
         modifyDestination(destination);
       });
-    } else{
+    } else{ // Sinon c'est qu'on est en mode ajout d'une destination
       form.addEventListener("submit", function(e){
         e.preventDefault();
         addDestination();

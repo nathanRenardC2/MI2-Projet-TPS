@@ -88,9 +88,10 @@ h1{
         }
 
         &:hover{
-
-            ul{
-                display: block;
+            @media screen and (min-width: $breakpoint-tablet) {
+                ul{
+                    display: block;
+                }
             }
         }
     }
@@ -178,9 +179,10 @@ h1{
         z-index: 1;
 
         &:hover{
-
-            ol{
-                display: block;
+            @media screen and (min-width: $breakpoint-tablet) {
+                ol{
+                    display: block;
+                }
             }
         }
     }

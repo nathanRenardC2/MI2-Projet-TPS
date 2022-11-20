@@ -13,6 +13,11 @@ tbody{
         &:nth-child(2n){
             background-color: $primary;
             color: white;
+
+            &:hover{
+                background-color: $primary-hover;
+            }
+            
             a{
                 color: white;
                 font-weight: bold;
