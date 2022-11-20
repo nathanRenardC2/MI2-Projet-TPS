@@ -865,48 +865,51 @@ function pageConnexion(){
     var h2 = document.createElement("h2");
     h2.innerHTML = "Bonjour " + role;
   }
-  let form = document.createElement("form");
-  form.setAttribute('id', 'form_connexion');
-  form.setAttribute('action', 'connexion.php');
-  let ul = document.createElement("ul");
-  // On boucle sur le JSON pour créer la page
-  connexion.forEach(function(data){
-    let li = document.createElement("li");
-    if(data.label){
-      let label = document.createElement("label");
-      label.setAttribute("for", data.label.for);
-      let span = document.createElement("span");
-      span.innerHTML = data.label.text;
-      label.appendChild(span);
-      if(data.input.required == true){
-        let span = document.createElement("span");
-        span.classList.add("required-star");
-        span.innerHTML = "*";
+  if(role != "admin" && role != "normal"){
+    var form = document.createElement("form");
+    form.setAttribute('id', 'form_connexion');
+    form.setAttribute('action', 'connexion.php');
+    var ul = document.createElement("ul");
+    // On boucle sur le JSON pour créer la page
+    connexion.forEach(function(data){
+      var li = document.createElement("li");
+      if(data.label){
+        var label = document.createElement("label");
+        label.setAttribute("for", data.label.for);
+        var span = document.createElement("span");
+        span.innerHTML = data.label.text;
         label.appendChild(span);
+        if(data.input.required == true){
+          var span = document.createElement("span");
+          span.classList.add("required-star");
+          span.innerHTML = "*";
+          label.appendChild(span);
+        }
+        li.appendChild(label);
       }
-      li.appendChild(label);
-    }
-    if(data.input){
-      let input = document.createElement("input");
-      input.setAttribute("type", data.input.type);
-      input.setAttribute("name", data.input.name);
-      input.setAttribute("id", data.input.id);
-      if(data.input.required == true){
-        input.setAttribute("required", "");
+      if(data.input){
+        var input = document.createElement("input");
+        input.setAttribute("type", data.input.type);
+        input.setAttribute("name", data.input.name);
+        input.setAttribute("id", data.input.id);
+        if(data.input.required == true){
+          input.setAttribute("required", "");
+        }
+        li.appendChild(input);
       }
-      li.appendChild(input);
+      ul.appendChild(li);
     }
-    ul.appendChild(li);
-  }
-  );
+    );
 
-  // On ajoute le bouton submit
-  let li = document.createElement("li");
-  let input = document.createElement("input");
-  input.setAttribute("type", "submit");
-  input.setAttribute("value", "Connexion");
-  li.appendChild(input);
-  ul.appendChild(li);
+    // On ajoute le bouton submit
+    let li = document.createElement("li");
+    let input = document.createElement("input");
+    input.setAttribute("type", "submit");
+    input.setAttribute("value", "Connexion");
+    li.appendChild(input);
+    ul.appendChild(li);
+    form.appendChild(ul);
+  }
 
   // On ajout un bouton de deconnexion si l'utilisateur est connecté sous le formulaire
   if(role == "admin" || role == "normal"){
@@ -917,27 +920,32 @@ function pageConnexion(){
     });
     button.setAttribute("id", "deconnexion");
     button.innerHTML = "Déconnexion";
-    ul.appendChild(button);
+    div.appendChild(button);
   }
 
-  form.appendChild(ul);
+
   if(role == "admin" || role == "normal"){
     div.appendChild(h2);
   }
-  div.appendChild(form);
+  if(role != "admin" && role != "normal"){
+    div.appendChild(form);
+  }
+
   section.appendChild(div);
   main_container.appendChild(section);
 
-  let form_connexion = document.getElementById("form_connexion");
-  form_connexion.addEventListener("submit", function(e){
-    e.preventDefault();
-    let formdata = new FormData(form_connexion);
-    let xhr = new XMLHttpRequest();
-    xhr.open("POST", "connexion.php", true);
-    xhr.addEventListener("load", fctRequetteOk);
-    xhr.addEventListener("error", fctRequetteKo);
-    xhr.send(formdata);
-  });
+  if(role != "admin" && role != "normal"){
+    let form_connexion = document.getElementById("form_connexion");
+    form_connexion.addEventListener("submit", function(e){
+      e.preventDefault();
+      let formdata = new FormData(form_connexion);
+      let xhr = new XMLHttpRequest();
+      xhr.open("POST", "connexion.php", true);
+      xhr.addEventListener("load", fctRequetteOk);
+      xhr.addEventListener("error", fctRequetteKo);
+      xhr.send(formdata);
+    });
+  }
 }
 
 // FONCTIONS GERANTS LA CONNEXION
@@ -1192,8 +1200,6 @@ function addDestination(){
 
   // On ajoute la destination dans le JSON
   destinations.push(destination);
-
-  console.log(destinations);
 
   // On ajoute la destination sur la page
   displayDestination(destination);

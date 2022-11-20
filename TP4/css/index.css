@@ -480,6 +480,9 @@ textarea {
   flex-direction: column;
   align-items: center;
   justify-content: center; }
+  #section_connexion .container h2 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem; }
 
 #deconnexion {
   border: none;
